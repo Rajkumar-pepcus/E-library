@@ -3,6 +3,9 @@ package com.pepcus.apicrud.exception;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+/*
+*  exception handelar
+ */
 @ResponseStatus(value=HttpStatus.NOT_FOUND)
 public class ResourceNoteFoundException extends RuntimeException  {
 	String resourceName;
