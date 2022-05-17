@@ -86,7 +86,13 @@ public class UserServiceImpl implements UserService {
 		}
 		return userRepository.save(user);
 	}
-
+        
+        /**
+	 * issue book to user
+	 * 
+	 * @param user
+	 * @return user
+	 */
 	@Override
 	public User issueBook(Integer id, List<Book> bookList) {
 		User existingUser = userRepository.findById(id)
@@ -101,7 +107,13 @@ public class UserServiceImpl implements UserService {
 		return userRepository.save(existingUser);
 
 	}
-
+        
+        /**
+	 * for sumition of book  from user
+	 * 
+	 * @param user
+	 * @return user
+	 */
 	@Override
 	public User returnBook(Integer id, List<Book> bookList) {
 		User existingUser = userRepository.findById(id)
