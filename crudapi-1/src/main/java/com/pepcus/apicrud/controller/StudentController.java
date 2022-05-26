@@ -28,10 +28,10 @@ import com.pepcus.apicrud.student.specification.StudentSpecification;
 @RestController
 @RequestMapping("/api/student")
 public class StudentController {
-	
+
 	@Autowired
 	private StudentRepository studentRepository;
-	
+
 	@Autowired
 	private StudentService studentService;
 
@@ -48,9 +48,9 @@ public class StudentController {
 	public List<Student> getAllStudents() {
 		return studentService.getAllStudents();
 	}
-      
+
 	/*
-	 * Get All student detail
+	 * Get student by id detail
 	 */
 	@GetMapping("{id}")
 	public ResponseEntity<Student> getStudentById(@PathVariable("id") long studentId) {
@@ -117,21 +117,20 @@ public class StudentController {
 
 		return studentRepository.findAll(specifications);
 	}
-	
+
 	@GetMapping("/e/{name}/{email}")
-	public List<Student> findByNameAndEmail(@PathVariable("name") String name,
-			@PathVariable("email") String email) {
+	public List<Student> findByNameAndEmail(@PathVariable("name") String name, @PathVariable("email") String email) {
 		Specification<Student> specifications = Specification
 				.where(StudentSpecification.hasName(name).and(StudentSpecification.hasEmail(email)));
 
 		return studentRepository.findAll(specifications);
 	}
+
 	/*
 	 * find by name and city
 	 */
 	@GetMapping("/nc/{name}/{city}")
-	public List<Student> findByNameAndCity(@PathParam("name") String name,
-			@PathParam("city") String city) {
+	public List<Student> findByNameAndCity(@PathParam("name") String name, @PathParam("city") String city) {
 		Specification<Student> specifications = Specification
 				.where(StudentSpecification.hasName(name).and(StudentSpecification.hasCity(city)));
 

@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import com.pepcus.apicrud.model.Student;
 
 @Repository
-public interface StudentRepository extends JpaRepository<Student, Long>, JpaSpecificationExecutor<Student> {
+public interface StudentRepository extends JpaRepository<Student,Long>, JpaSpecificationExecutor<Student> {
 
 	List<Student> findByDepartment(String department);
 

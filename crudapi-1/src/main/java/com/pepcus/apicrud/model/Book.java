@@ -27,12 +27,12 @@ public class Book {
 
 	@Column(name = "name")
 	private String name;
-	
+
 	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
 	@Column(name = "added_on")
 	private Date addDate;
 
 	@Column(name = "modified_on")
-	private Date modifiedDate;
+	private Date modifiedDate = new Date();
 
 }

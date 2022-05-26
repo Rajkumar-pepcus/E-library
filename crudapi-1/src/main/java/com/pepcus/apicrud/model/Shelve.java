@@ -28,12 +28,11 @@ public class Shelve {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-    
-	@Column(name="name")
+
+	@Column(name = "name")
 	private String name;
 
-	
-	@OneToMany(cascade = CascadeType.ALL )
+	@OneToMany(cascade = CascadeType.ALL)
 	@Valid
 	private List<Book> bookList;
 }

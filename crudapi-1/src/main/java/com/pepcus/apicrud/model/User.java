@@ -34,17 +34,16 @@ public class User {
 
 	@Column(name = "current_book_issue")
 	private Integer currentBookIssue;
-	
+
 	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
 	@Column(name = "registration_on")
 	private Date registrationOn;
-    
+
 	@Column(name = "deactivation_on")
 	private Date deactivationON;
 
-	
 	@OneToMany(cascade = CascadeType.ALL)
-	
+
 	private List<Book> bookList;
 
 }

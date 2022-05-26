@@ -28,6 +28,10 @@ public class StudentServiceImpl implements StudentService {
 	@Autowired
 	private StudentRepository studentRepository;
 
+	public StudentServiceImpl() {
+
+	}
+
 	public StudentServiceImpl(StudentRepository studentRepository) {
 		super();
 		this.studentRepository = studentRepository;
@@ -64,7 +68,7 @@ public class StudentServiceImpl implements StudentService {
 	 * To get the student details by id
 	 */
 	@Override
-	public Student getStudentById(long id) {
+	public Student getStudentById(Long id) {
 		Optional<Student> student = studentRepository.findById(id);
 		if (student.isPresent()) {
 			return student.get();
@@ -72,6 +76,10 @@ public class StudentServiceImpl implements StudentService {
 			throw new ResourceNoteFoundException("student", "id", id);
 		}
 
+	}
+
+	public String getString() {
+		return "x";
 	}
 
 	/**
@@ -119,9 +127,9 @@ public class StudentServiceImpl implements StudentService {
 		Page<Student> pages = studentRepository.findAll(PageRequest.of(offset, pageSize));
 		return pages;
 	}
-     
+
 	/**
-	 * search by department 
+	 * search by department
 	 * 
 	 */
 	@Override

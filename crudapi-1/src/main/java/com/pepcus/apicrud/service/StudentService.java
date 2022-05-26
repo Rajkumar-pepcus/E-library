@@ -12,7 +12,7 @@ public interface StudentService {
 
 	List<Student> getAllStudents();
 
-	Student getStudentById(long id);
+	Student getStudentById(Long id);
 
 	Student updateStudent(Student student, long id);
 
@@ -26,5 +26,4 @@ public interface StudentService {
 
 	List<Student> getStudentByName(String name);
 
-	
 }

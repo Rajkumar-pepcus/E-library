@@ -11,6 +11,7 @@ import com.pepcus.apicrud.model.Book;
 import com.pepcus.apicrud.model.Shelve;
 import com.pepcus.apicrud.repository.ShelveRepository;
 import com.pepcus.apicrud.service.ShelveService;
+
 /**
  * 
  * 
@@ -35,7 +36,6 @@ public class ShelveServiceImpl implements ShelveService {
 	 * @param shelve
 	 * @return shelve
 	 */
-
 	@Override
 	public Shelve saveShelve(Shelve shelve) {
 
@@ -43,6 +43,12 @@ public class ShelveServiceImpl implements ShelveService {
 
 	}
 
+	/**
+	 * To save book.
+	 * 
+	 * @param book
+	 * @return book
+	 */
 	@Override
 	public Shelve saveBook(Integer id, List<Book> bookList) {
 		Optional<Shelve> existingShelveOptional = shelveRepository.findById(id);

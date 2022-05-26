@@ -3,11 +3,14 @@ package com.pepcus.apicrud.service.impl;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import com.pepcus.apicrud.exception.ResourceNoteFoundException;
 import com.pepcus.apicrud.model.Book;
 import com.pepcus.apicrud.model.User;
+import com.pepcus.apicrud.repository.BookRepository;
 import com.pepcus.apicrud.repository.UserRepository;
 import com.pepcus.apicrud.service.UserService;
 
@@ -23,6 +26,9 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private UserRepository userRepository;
+
+	@Autowired
+	private BookRepository bookRepository;
 
 	public UserServiceImpl(UserRepository userRepository) {
 		super();
@@ -80,14 +86,20 @@ public class UserServiceImpl implements UserService {
 	public User deactivationOn(Integer userId) {
 		User user = userRepository.findById(userId)
 				.orElseThrow(() -> new ResourceNoteFoundException("User", "id", userId));
-		if (user.getDeactivationON() == null) {
-			user.setDeactivationON(new Date());
+		List<Book> user1 = user.getBookList();
+		if (user1.isEmpty()) {
+			if (user.getDeactivationON() == null) {
+				user.setDeactivationON(new Date());
+
+			}
+		} else {
+			throw new ResourceNoteFoundException("Please return issued book", "id", user);
 
 		}
 		return userRepository.save(user);
 	}
-        
-        /**
+
+	/**
 	 * issue book to user
 	 * 
 	 * @param user
@@ -95,21 +107,33 @@ public class UserServiceImpl implements UserService {
 	 */
 	@Override
 	public User issueBook(Integer id, List<Book> bookList) {
-		User existingUser = userRepository.findById(id)
-				.orElseThrow(() -> new ResourceNoteFoundException(" user", "id", bookList));
 
-		List<Book> existingBookList = existingUser.getBookList();
-		for (Book book : bookList) {
-			existingBookList.add(book);
+		User existingUser = userRepository.findById(id)
+				.orElseThrow(() -> new ResourceNoteFoundException("Please registar user", "id", bookList));
+
+		List<Book> user1 = existingUser.getBookList();
+		if (user1.isEmpty()) {
+			if (existingUser.getDeactivationON() == null) {
+
+				List<Book> existingBookList = existingUser.getBookList();
+
+				for (Book book : bookList) {
+					existingBookList.add(book);
+
+				}
+
+				existingUser.setBookList(existingBookList);
+			}
+		} else {
+			throw new ResourceNoteFoundException("First activet the user", "id", existingUser);
 		}
 
-		existingUser.setBookList(existingBookList);
 		return userRepository.save(existingUser);
 
 	}
-        
-        /**
-	 * for sumition of book  from user
+
+	/**
+	 * return book from user
 	 * 
 	 * @param user
 	 * @return user
@@ -124,6 +148,7 @@ public class UserServiceImpl implements UserService {
 		}
 
 		existingUser.setBookList(existingBookList);
+
 		return userRepository.saveAndFlush(existingUser);
 
 	}

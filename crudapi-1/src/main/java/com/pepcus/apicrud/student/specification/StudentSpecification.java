@@ -1,9 +1,6 @@
 package com.pepcus.apicrud.student.specification;
 
-
-
-
-
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -55,17 +52,17 @@ public class StudentSpecification {
 		});
 
 	}
-	
+
 	public static <Student> Specification<Student> bySearchFilter(final Class<Student> clazz) {
-	    return (Root<Student> root, CriteriaQuery<?> query, CriteriaBuilder builder) -> {
-	        query.multiselect(root.get("city")).distinct(true);
+		return (Root<Student> root, CriteriaQuery<?> query, CriteriaBuilder builder) -> {
+			query.multiselect(root.get("city")).distinct(true);
 
-	        List<String> predicates = List.of("city");
+			List<String> predicates = new ArrayList<>(); // Arrays.as("city");
 
-	        predicates.addAll((Collection<? extends String>) builder.equal(root.get("active"), "Y"));
+			predicates.addAll((Collection<? extends String>) builder.equal(root.get("active"), "Y"));
 
-	        return builder.and(predicates.toArray(new Predicate[0]));
+			return builder.and(predicates.toArray(new Predicate[0]));
 
-	    };
+		};
 	}
 }
